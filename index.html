@@ -8,7 +8,7 @@
       content="Site de recettes de cuisine permettant de rechercher des plats selon les ingrédients, ustensiles et équipements utilisés."
     />
     <title>Les Petits Plats</title>
-    <link rel="icon" href="/assets/site/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./assets/site/favicon.ico" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
@@ -17,17 +17,17 @@
       href="https://fonts.googleapis.com/css?family=Anton|Manrope"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/style.css" />
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
   </head>
 
   <body>
-    <!-- Section 1 : Header -->
+    <!-- Section 1 : Header & Search -->
     <header>
       <div class="banner-box">
-        <img src="/assets/site/banner.png" class="banner" alt="Plat cuisiné" />
+        <img src="./assets/site/banner.png" class="banner" alt="Plat cuisiné" />
         <img
-          src="/assets/site/logo.png"
+          src="./assets/site/logo.png"
           class="logo"
           alt="Logo de Les Petits Plats"
         />
@@ -39,6 +39,7 @@
           <div class="input-group search-bar">
             <input
               type="search"
+              id="searchInput"
               class="form-control rounded search-input"
               placeholder="Rechercher une recette, un ingrédient, ..."
               aria-label="Search"
@@ -53,7 +54,7 @@
       </div>
     </header>
     <main>
-      <!-- Section 2 : Sort & Search -->
+      <!-- Section 2 : Filter -->
       <section class="sortSection">
         <div class="sortBox">
           <div class="dropdown">
@@ -88,7 +89,6 @@
                     ></span>
                   </div>
                 </div>
-                <br />
                 <div id="ingredientTagsBox">
                   <!-- tags go here -->
                 </div>
@@ -101,7 +101,6 @@
             </div>
           </div>
         </div>
-
         <div class="sortBox">
           <div class="dropdown">
             <button
@@ -135,7 +134,6 @@
                     ></span>
                   </div>
                 </div>
-                <br />
                 <div id="applianceTagsBox">
                   <!-- tags go here -->
                 </div>
@@ -151,7 +149,7 @@
         <div class="sortBox">
           <div class="dropdown">
             <button
-              id="utensilsDropdownToggle"
+              id="utensilDropdownToggle"
               class="btn dropdown-toggle"
               type="button"
               data-bs-toggle="dropdown"
@@ -163,13 +161,13 @@
             </button>
             <div
               class="dropdown-menu"
-              id="utensilsDropdown"
-              aria-labelledby="utensilsDropdownToggle"
+              id="utensilDropdown"
+              aria-labelledby="utensilDropdownToggle"
             >
               <div class="dropdown-search-box">
                 <div class="input-group">
                   <input
-                    id="utensilsSearchInput"
+                    id="utensilSearchInput"
                     type="search"
                     class="form-control search-input"
                     placeholder="Rechercher..."
@@ -181,13 +179,11 @@
                     ></span>
                   </div>
                 </div>
-                <br />
-                <br />
-                <div id="utensilsTagsBox">
+                <div id="utensilTagsBox">
                   <!-- tags go here -->
                 </div>
                 <div class="dropdownItemsBox">
-                  <div id="utensilsDropdownItems">
+                  <div id="utensilDropdownItems">
                     <!-- items go here -->
                   </div>
                 </div>
@@ -195,8 +191,12 @@
             </div>
           </div>
         </div>
-        <div class="totalRecipes"></div>
+        <div class="totalRecipes">
+          <!-- All tags go here -->
+        </div>
       </section>
+      <div class="allTags"></div>
+
       <!-- Section 3 : Recipes -->
       <section class="recipesSection"></section>
     </main>
@@ -215,8 +215,10 @@
       integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="/assets/js/tag.js"></script>
-    <script type="module" src="/assets/js/index.js"></script>
-    <script type="module" src="/assets/js/sort.js"></script>
+    <script src="./assets/js/recipes.js"></script>
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/tag.js"></script>
+    <script src="./assets/js/filter.js"></script>
+    <script src="./assets/js/search.js"></script>
   </body>
 </html>

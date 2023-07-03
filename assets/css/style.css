@@ -2,6 +2,9 @@ body {
   background-color: #d3d3d3;
 }
 
+main {
+  background-color: #ededed;
+}
 /* Section 1 : Banner */
 .banner-box {
   position: relative;
@@ -54,12 +57,10 @@ h1 {
   margin: 10px;
 }
 
-/* Section 2 - Sort & Search */
-
+/* Section 2 - Filter */
 .sortSection {
   display: flex;
   align-items: center;
-  background-color: #ededed;
   padding: 10px;
 }
 
@@ -122,6 +123,10 @@ h1 {
   transform: translateY(-50%);
 }
 
+.input-group {
+  margin-bottom: 15px;
+}
+
 .input-group-append {
   position: absolute;
   top: 5px;
@@ -129,22 +134,47 @@ h1 {
   bottom: 0;
 }
 
+.ingredientList,
+.utensilList,
+.applianceList {
+  text-decoration-line: none;
+  font: 400 14px "Manrope";
+  color: #1b1b1b;
+  line-height: 25px;
+  padding: 0 10px 0 10px;
+}
+
 /* Tags */
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px 8px;
+  padding: 4px 10px;
   background-color: #ffd15b;
   color: #000000;
   font-size: 14px;
-  margin: 4px;
-  width: 100%;
+  margin: 3px 0px 3px -10px;
+  width: 115%;
 }
 
-/* .close {
-  margin-left: 4px;
+.allTags {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 40px 0 40px;
+}
+
+.allTags .tag {
+  width: auto;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px 30px;
+  align-content: left;
+}
+
+.close {
+  margin: 5px;
   cursor: pointer;
-} */
+  color: #1b1b1b;
+}
 
 /* Section 3 : Recipes */
 .recipesSection {
@@ -157,7 +187,6 @@ h1 {
 .recipeCard {
   width: 380px;
   height: 730px;
-  overflow-y: scroll;
   background: #ffffff;
   box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
   border-radius: 21px;
@@ -175,6 +204,7 @@ h1 {
   height: 253px;
   width: 380px;
   object-fit: cover;
+  border-radius: 21px 21px 0 0;
 }
 
 .recipeTime {
@@ -218,7 +248,7 @@ h1 {
   color: #1b1b1b;
   margin-bottom: 32px;
   height: 80px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .ingredientsList {

@@ -1,11 +1,7 @@
-// Import the recipes data
-import recipes from "/assets/recipes.js";
-
 const totalRecipeElement = document.querySelector(".totalRecipes");
+const recipesSection = document.querySelector(".recipesSection");
 
 function displayRecipes() {
-  const recipesSection = document.querySelector(".recipesSection");
-
   recipesSection.innerHTML = "";
 
   for (let i = 0; i < recipes.length; i++) {
@@ -15,18 +11,12 @@ function displayRecipes() {
     const recipeCard = document.createElement("div");
     recipeCard.classList.add("recipeCard");
 
-    // Toggle ingredients section
-    recipeCard.addEventListener("click", function () {
-      const ingredientsSort = this.querySelector(".sortBox");
-      ingredientsSort.classList.toggle("show");
-    });
-
     const recipeLink = document.createElement("a");
     recipeLink.href = "#";
 
     const recipeImage = document.createElement("img");
     recipeImage.classList.add("recipeImage");
-    recipeImage.src = "/assets/images/recettes/" + recipe.image;
+    recipeImage.src = "./assets/images/recettes/" + recipe.image;
     recipeImage.alt = recipe.name;
 
     const recipeTime = document.createElement("p");
@@ -113,10 +103,4 @@ function displayRecipes() {
 
   // Set the text content for total number of recipes
   totalRecipeElement.textContent = recipes.length + " recettes";
-
-  // Call the function to populate dropdown menus
-  // populateDropdowns();
 }
-
-// Call the function to display the recipes
-displayRecipes(recipes);
