@@ -1,44 +1,66 @@
 const allTagsBox = document.querySelector(".allTags");
-
 // 1. Ingredient section
 const ingredientDropdownItems = document.getElementById(
   "ingredientDropdownItems"
 );
 const ingredientTagsBox = document.getElementById("ingredientTagsBox");
 
-ingredientDropdownItems.addEventListener("click", (event) => {
-  if (event.target.classList.contains("ingredientList")) {
-    const selectedIngredient = event.target.innerText;
-    addIngredientTag(selectedIngredient);
-    // Remove selectedIngredient from ingredientList
-    event.target.remove(); // not working !?!
-    ingredientSearchInput.value = "";
-  }
-});
-
+// See filter.js
 function addIngredientTag(ingredient) {
-  console.log("Tag check:", ingredient);
+  console.log("Ingredient tag check:", ingredient);
   const tag = document.createElement("span");
   tag.classList.add("tag");
   tag.textContent = ingredient;
-  // Add tag to the ingredientTagsBox div
+  // Append tag to the ingredientTagsBox div
   ingredientTagsBox.appendChild(tag);
 
-  // Add tag to the allTags div
-  const allTags = allTagsBox.querySelectorAll(".tag");
-  const existingTags = Array.from(allTags).map((tag) => tag.textContent);
-  if (!existingTags.includes(ingredient)) {
+  // Add tag to the allTags div if it doesn't already exist
+  const existingTags = allTagsBox.querySelectorAll(".tag");
+  let existingTag = false;
+  for (let i = 0; i < existingTags.length; i++) {
+    if (
+      existingTags[i].textContent.toLowerCase() === ingredient.toLowerCase()
+    ) {
+      existingTag = true;
+      break;
+    }
+  }
+  if (!existingTag) {
     const allTagsTag = document.createElement("span");
     allTagsTag.classList.add("tag");
     allTagsTag.textContent = ingredient;
     allTagsBox.appendChild(allTagsTag);
   }
+
+  // Hide the ingredientList in the dropdown list
+  const dropdownItems =
+    ingredientDropdownItems.getElementsByClassName("ingredientList");
+  for (let i = 0; i < dropdownItems.length; i++) {
+    const item = dropdownItems[i];
+    if (item.textContent.toLowerCase() === ingredient.toLowerCase()) {
+      item.style.display = "none";
+      break;
+    }
+  }
 }
 
-// Remove tag from the ingredientTagsBox div
+// Remove tag from the ingredientTagsBox div and show it in the dropdown list
 ingredientTagsBox.addEventListener("click", (event) => {
   if (event.target.classList.contains("tag")) {
-    event.target.remove();
+    event.target.remove(); // Remove the clicked ingredient tag
+
+    // Show the corresponding ingredientList in the dropdown
+    const dropdownItems =
+      ingredientDropdownItems.getElementsByClassName("ingredientList");
+    for (let i = 0; i < dropdownItems.length; i++) {
+      const item = dropdownItems[i];
+      if (
+        item.innerText.toLowerCase() === event.target.textContent.toLowerCase()
+      ) {
+        item.style.display = "block";
+        break;
+      }
+    }
   }
 });
 
@@ -48,34 +70,43 @@ const applianceDropdownItems = document.getElementById(
 );
 const applianceTagsBox = document.getElementById("applianceTagsBox");
 
-applianceDropdownItems.addEventListener("click", (event) => {
-  if (event.target.classList.contains("applianceList")) {
-    const selectedAppliance = event.target.innerText;
-    addApplianceTag(selectedAppliance);
-    applianceSearchInput.value = "";
-  }
-});
-
 function addApplianceTag(appliance) {
-  console.log("Tag check:", appliance);
+  console.log("Appliance tag check:", appliance);
   const tag = document.createElement("span");
   tag.classList.add("tag");
   tag.textContent = appliance;
-
-  // Append the tag to the applianceTagsBox div
+  // Append tag to the applianceTagsBox div
   applianceTagsBox.appendChild(tag);
-  // Add tag to the allTags div
-  const allTags = allTagsBox.querySelectorAll(".tag");
-  const existingTags = Array.from(allTags).map((tag) => tag.textContent);
-  if (!existingTags.includes(appliance)) {
+
+  // Add tag to the allTags div if it doesn't already exist
+  const existingTags = allTagsBox.querySelectorAll(".tag");
+  let existingTag = false;
+  for (let i = 0; i < existingTags.length; i++) {
+    if (existingTags[i].textContent.toLowerCase() === appliance.toLowerCase()) {
+      existingTag = true;
+      break;
+    }
+  }
+  if (!existingTag) {
     const allTagsTag = document.createElement("span");
     allTagsTag.classList.add("tag");
     allTagsTag.textContent = appliance;
     allTagsBox.appendChild(allTagsTag);
   }
+
+  // Hide the applianceList in the dropdown list
+  const dropdownItems =
+    applianceDropdownItems.getElementsByClassName("applianceList");
+  for (let i = 0; i < dropdownItems.length; i++) {
+    const item = dropdownItems[i];
+    if (item.textContent.toLowerCase() === appliance.toLowerCase()) {
+      item.style.display = "none";
+      break;
+    }
+  }
 }
 
-// Remove tag from the applianceTagsBox div
+// Remove tag from the applianceTagsBox div and display it in the dropdown list
 applianceTagsBox.addEventListener("click", (event) => {
   if (event.target.classList.contains("tag")) {
     event.target.remove();
@@ -86,37 +117,58 @@ applianceTagsBox.addEventListener("click", (event) => {
 const utensilDropdownItems = document.getElementById("utensilDropdownItems");
 const utensilTagsBox = document.getElementById("utensilTagsBox");
 
-utensilDropdownItems.addEventListener("click", (event) => {
-  if (event.target.classList.contains("utensilList")) {
-    const selectedUtensil = event.target.innerText;
-    addUtensilTag(selectedUtensil);
-    utensilSearchInput.value = "";
-  }
-});
-
 function addUtensilTag(utensil) {
-  console.log("Tag check:", utensil);
+  console.log("Utensil tag check:", utensil);
   const tag = document.createElement("span");
   tag.classList.add("tag");
   tag.textContent = utensil;
-
   // Append the tag to the utensilTagsBox div
   utensilTagsBox.appendChild(tag);
 
-  // Add tag to the allTags div
-  const allTags = allTagsBox.querySelectorAll(".tag");
-  const existingTags = Array.from(allTags).map((tag) => tag.textContent);
-  if (!existingTags.includes(utensil)) {
+  // Add tag to the allTags div if not existing
+  const existingTags = allTagsBox.querySelectorAll(".tag");
+  let existingTag = false;
+  for (let i = 0; i < existingTags.length; i++) {
+    if (existingTags[i].textContent.toLowerCase() === utensil.toLowerCase()) {
+      existingTag = true;
+      break;
+    }
+  }
+  if (!existingTag) {
     const allTagsTag = document.createElement("span");
     allTagsTag.classList.add("tag");
     allTagsTag.textContent = utensil;
     allTagsBox.appendChild(allTagsTag);
   }
+
+  // Hide the ingredientList in the dropdown list
+  const dropdownItems =
+    utensilDropdownItems.getElementsByClassName("utensilList");
+  for (let i = 0; i < dropdownItems.length; i++) {
+    const item = dropdownItems[i];
+    if (item.textContent.toLowerCase() === utensil.toLowerCase()) {
+      item.style.display = "none";
+      break;
+    }
+  }
 }
 
-// Remove tag from the utensilTagsBox div
+// Remove tag from the ingredientTagsBox div and show it in the dropdown list
 utensilTagsBox.addEventListener("click", (event) => {
   if (event.target.classList.contains("tag")) {
-    event.target.remove();
+    event.target.remove(); // Remove the clicked utensil tag
+
+    // Show the corresponding utensilList in the dropdown
+    const dropdownItems =
+      utensilDropdownItems.getElementsByClassName("utensilList");
+    for (let i = 0; i < dropdownItems.length; i++) {
+      const item = dropdownItems[i];
+      if (
+        item.innerText.toLowerCase() === event.target.textContent.toLowerCase()
+      ) {
+        item.style.display = "block";
+        break;
+      }
+    }
   }
 });
