@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Site de recettes de cuisine permettant de rechercher des plats selon les ingrédients, ustensiles et équipements utilisés."
+    />
+    <title>Les Petits Plats</title>
+    <link rel="icon" href="./assets/site/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Anton|Manrope"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+    <!-- Section 1 : Header & Search -->
+    <header>
+      <div class="banner-box">
+        <img src="./assets/site/banner.png" class="banner" alt="Plat cuisiné" />
+        <img
+          src="./assets/site/logo.png"
+          class="logo"
+          alt="Logo de Les Petits Plats"
+        />
+        <div class="inside-banner">
+          <h1>
+            CHERCHEZ PARMI PLUS DE 1500 RECETTES DU QUOTIDIEN, SIMPLES ET
+            DÉLICIEUSES
+          </h1>
+          <div class="input-group search-bar">
+            <input
+              type="search"
+              id="searchInput"
+              class="form-control rounded search-input"
+              placeholder="Rechercher une recette, un ingrédient, ..."
+              aria-label="Search"
+            />
+            <div class="search-loop">
+              <button type="button" href="#" class="btn btn-dark">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <!-- Section 2 : Filter -->
+      <section class="sortSection">
+        <div class="sortBox">
+          <div class="dropdown">
+            <button
+              id="ingredientDropdownToggle"
+              class="btn dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Ingrédients
+              <span class="fas fa-chevron-down dropdown-chevron"></span>
+            </button>
+            <div
+              class="dropdown-menu"
+              id="ingredientDropdown"
+              aria-labelledby="ingredientDropdownToggle"
+            >
+              <div class="dropdown-search-box">
+                <div class="input-group">
+                  <input
+                    id="ingredientSearchInput"
+                    type="search"
+                    class="form-control search-input"
+                    placeholder="Rechercher..."
+                    aria-label="Rechercher"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-transparent border-0"
+                      ><i class="fas fa-search"></i
+                    ></span>
+                  </div>
+                </div>
+                <div id="ingredientTagsBox">
+                  <!-- selected tags go here -->
+                </div>
+                <div class="dropdownItemsBox">
+                  <div id="ingredientDropdownItems">
+                    <!-- items go here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sortBox">
+          <div class="dropdown">
+            <button
+              id="applianceDropdownToggle"
+              class="btn dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Appareils
+              <span class="fas fa-chevron-down dropdown-chevron"></span>
+            </button>
+            <div
+              class="dropdown-menu"
+              id="applianceDropdown"
+              aria-labelledby="applianceDropdownToggle"
+            >
+              <div class="dropdown-search-box">
+                <div class="input-group">
+                  <input
+                    id="applianceSearchInput"
+                    type="search"
+                    class="form-control search-input"
+                    placeholder="Rechercher..."
+                    aria-label="Rechercher"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-transparent border-0"
+                      ><i class="fas fa-search"></i
+                    ></span>
+                  </div>
+                </div>
+                <div id="applianceTagsBox">
+                  <!-- tags go here -->
+                </div>
+                <div class="dropdownItemsBox">
+                  <div id="applianceDropdownItems">
+                    <!-- items go here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sortBox">
+          <div class="dropdown">
+            <button
+              id="utensilDropdownToggle"
+              class="btn dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Ustensiles
+              <span class="fas fa-chevron-down dropdown-chevron"></span>
+            </button>
+            <div
+              class="dropdown-menu"
+              id="utensilDropdown"
+              aria-labelledby="utensilDropdownToggle"
+            >
+              <div class="dropdown-search-box">
+                <div class="input-group">
+                  <input
+                    id="utensilSearchInput"
+                    type="search"
+                    class="form-control search-input"
+                    placeholder="Rechercher..."
+                    aria-label="Rechercher"
+                  />
+                  <div class="input-group-append">
+                    <span class="input-group-text bg-transparent border-0"
+                      ><i class="fas fa-search"></i
+                    ></span>
+                  </div>
+                </div>
+                <div id="utensilTagsBox">
+                  <!-- tags go here -->
+                </div>
+                <div class="dropdownItemsBox">
+                  <div id="utensilDropdownItems">
+                    <!-- items go here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="totalRecipes"></div>
+      </section>
+      <div class="allTags"></div>
+
+      <!-- Section 3 : Recipes -->
+      <section class="recipesSection"></section>
+    </main>
+
+    <!-- Section 4 : Footer -->
+    <footer class="footer"></footer>
+
+    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/recipes.js"></script>
+    <script src="./assets/js/populate.js"></script>
+    <script src="./assets/js/filter.js"></script>
+    <script src="./assets/js/search.js"></script>
+    <script src="./assets/js/tag.js"></script>
+  </body>
+</html>
