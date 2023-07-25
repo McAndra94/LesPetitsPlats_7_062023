@@ -112,8 +112,40 @@ h1 {
   overflow-y: auto;
 }
 
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-toggle {
+  position: relative;
+}
+
 .dropdown-toggle::after {
+  content: "";
   display: none !important;
+  width: 0.3em;
+  height: 0.3em;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  border-top: 0.4em solid;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0;
+  border-left: 0.4em solid transparent;
+  transition: transform 0.2s;
+}
+
+.dropdown-toggle[aria-expanded="true"]::after {
+  transform: rotate(180deg);
+}
+
+.dropdown-chevron {
+  margin-left: 0.5em;
+  vertical-align: middle;
+  transition: transform 0.2s;
+}
+
+.dropdown-toggle[aria-expanded="true"] .dropdown-chevron {
+  transform: rotate(180deg);
 }
 
 .sortBox .fa-chevron-down {
@@ -166,12 +198,14 @@ h1 {
   width: auto;
   border-radius: 5px;
   margin: 10px;
-  padding: 10px 30px;
+  padding: 10px;
   align-content: left;
 }
 
-.close {
-  margin: 5px;
+.close,
+.fa-times {
+  margin-left: 20px;
+  margin-right: 0;
   cursor: pointer;
   color: #1b1b1b;
 }
@@ -289,4 +323,14 @@ h1 {
 .quantityUnitCell {
   font: 400 14px "Manrope";
   color: #7a7a7a;
+}
+
+.recipeUtensil,
+.recipeAppliance {
+  display: none;
+}
+
+.noMatchMsg {
+  padding: 10px 50px 300px 50px;
+  text-align: center;
 }

@@ -1,8 +1,9 @@
 const totalRecipeElement = document.querySelector(".totalRecipes");
 const recipesSection = document.querySelector(".recipesSection");
 
-function displayRecipes() {
+function displayRecipes(recipes) {
   recipesSection.innerHTML = "";
+  console.log("displayRecipes check", recipes);
 
   for (let i = 0; i < recipes.length; i++) {
     const recipe = recipes[i];
@@ -53,9 +54,7 @@ function displayRecipes() {
 
     for (let j = 0; j < recipe.ingredients.length; j++) {
       const ingredient = recipe.ingredients[j];
-
       const ingredientRow = document.createElement("tr");
-
       const ingredientNameCell = document.createElement("td");
       ingredientNameCell.classList.add("ingredientNameCell");
       ingredientNameCell.textContent = ingredient.ingredient;
@@ -63,7 +62,6 @@ function displayRecipes() {
 
       if (ingredient.quantity) {
         const lineBreakRow = document.createElement("tr");
-
         const quantityUnitCell = document.createElement("td");
         quantityUnitCell.classList.add("quantityUnitCell");
 
@@ -81,10 +79,29 @@ function displayRecipes() {
       ingredientsTable.appendChild(ingredientRow);
     }
 
-    // Append the HTML elements to the recipe card
-    recipeSection.appendChild(recipeTitle);
-    recipeSection.appendChild(recipeDescription);
+    // Create elements for appliance and utensils
+    if (recipe.appliance) {
+      const recipeAppliance = document.createElement("div");
+      recipeAppliance.classList.add("recipeAppliance");
+      recipeAppliance.textContent = recipe.appliance;
 
+      // Append the HTML elements to the recipe card
+      recipeSection.appendChild(recipeTitle);
+      recipeSection.appendChild(recipeDescription);
+      recipeSection.appendChild(recipeAppliance);
+    } else {
+      recipeSection.appendChild(recipeTitle);
+      recipeSection.appendChild(recipeDescription);
+    }
+
+    // Create element for utensils if available
+    if (recipe.ustensils && recipe.ustensils.length > 0) {
+      const recipeUtensil = document.createElement("div");
+      recipeUtensil.classList.add("recipeUtensil");
+      recipeUtensil.textContent = recipe.ustensils.join(", ");
+
+      recipeSection.appendChild(recipeUtensil);
+    }
     ingredientsSection.appendChild(ingredientsTitle);
     ingredientsSection.appendChild(ingredientsTable);
 
@@ -104,3 +121,40 @@ function displayRecipes() {
   // Set the text content for total number of recipes
   totalRecipeElement.textContent = recipes.length + " recettes";
 }
+
+const dropdownToggleButtons = document.querySelectorAll(".dropdown-toggle");
+for (let i = 0; i < dropdownToggleButtons.length; i++) {
+  const button = dropdownToggleButtons[i];
+  button.addEventListener("click", function () {
+    const dropdownMenu = button.nextElementSibling;
+
+    // Check if dropdownMenu contains .show (if not: hidden, if yes: visible)
+    if (dropdownMenu.classList.contains("show") == false) {
+      const buttons = document.querySelectorAll(".dropdown-toggle");
+
+      for (let j = 0; j < buttons.length; j++) {
+        // Remove .show from next sibling of each .dropdown-toggle
+        buttons[j].nextElementSibling.classList.remove("show");
+        // Set aria-expanded to false, informs the toggle is closed
+        buttons[j].setAttribute("aria-expanded", false);
+      }
+    }
+
+    dropdownMenu.classList.toggle("show");
+    // If .show, aria-expanded informs the toggle is expanded
+    button.setAttribute(
+      "aria-expanded",
+      dropdownMenu.classList.contains("show")
+    );
+  });
+}
+
+window.onload = function () {
+  // Call the function to display the recipes
+  displayRecipes(recipes);
+  populateDropdowns(recipes);
+  filterIngredients(searchResults);
+  filterAppliances(searchResults);
+  filterUtensils(searchResults);
+  attachEventListeners();
+};
