@@ -1,3 +1,4 @@
+let searchResults = [];
 const totalRecipeElement = document.querySelector(".totalRecipes");
 const recipesSection = document.querySelector(".recipesSection");
 

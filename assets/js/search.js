@@ -2,18 +2,13 @@ const searchInput = document.getElementById("searchInput");
 const recipeCards = recipesSection.getElementsByClassName("recipeCard");
 const noMatchMsg = document.createElement("p");
 noMatchMsg.classList.add("noMatchMsg");
-let searchResults = [];
 
 searchInput.addEventListener("input", function () {
   const searchText = searchInput.value.toLowerCase();
 
-  // Search launches at 3 or more input
-  if (searchText.length >= 3) {
+  // Search launches at 3 input, and if empty all recipes are displayed
+  if (searchText.length >= 3 || searchText === "") {
     searchRecipes();
-  }
-  // Reset recipes back to initial when empty
-  else if (searchText === "") {
-    displayRecipes(recipes);
   }
 });
 
@@ -52,6 +47,7 @@ function searchRecipes() {
     if (searchMatch) {
       recipeCard.style.display = "block";
       cards++;
+      // searchResults++;
       searchResults.push(recipeCard); // Store the filtered recipe card
     } else {
       recipeCard.style.display = "none";

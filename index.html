@@ -14,7 +14,11 @@
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Anton|Manrope"
+      href="https://fonts.googleapis.com/css?family=Anton"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Manrope"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
@@ -42,11 +46,11 @@
               type="search"
               id="searchInput"
               class="form-control rounded search-input"
-              placeholder="Rechercher une recette, un ingrédient, ..."
+              placeholder="Rechercher une recette, un ingrédient, "
               aria-label="Search"
             />
             <div class="search-loop">
-              <button type="button" href="#" class="btn btn-dark">
+              <button type="button" class="btn btn-dark">
                 <i class="fas fa-search"></i>
               </button>
             </div>
@@ -56,7 +60,7 @@
     </header>
     <main>
       <!-- Section 2 : Filter -->
-      <section class="sortSection">
+      <div class="sortSection">
         <div class="sortBox">
           <div class="dropdown">
             <button
@@ -81,7 +85,7 @@
                     id="ingredientSearchInput"
                     type="search"
                     class="form-control search-input"
-                    placeholder="Rechercher..."
+                    placeholder="Rechercher"
                     aria-label="Rechercher"
                   />
                   <div class="input-group-append">
@@ -126,7 +130,7 @@
                     id="applianceSearchInput"
                     type="search"
                     class="form-control search-input"
-                    placeholder="Rechercher..."
+                    placeholder="Rechercher"
                     aria-label="Rechercher"
                   />
                   <div class="input-group-append">
@@ -171,7 +175,7 @@
                     id="utensilSearchInput"
                     type="search"
                     class="form-control search-input"
-                    placeholder="Rechercher..."
+                    placeholder="Rechercher"
                     aria-label="Rechercher"
                   />
                   <div class="input-group-append">
@@ -193,11 +197,11 @@
           </div>
         </div>
         <div class="totalRecipes"></div>
-      </section>
+      </div>
       <div class="allTags"></div>
 
       <!-- Section 3 : Recipes -->
-      <section class="recipesSection"></section>
+      <div class="recipesSection"></div>
     </main>
 
     <!-- Section 4 : Footer -->

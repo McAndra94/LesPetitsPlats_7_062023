@@ -5,12 +5,11 @@ const ingredientItems = document.getElementById("ingredientDropdownItems");
 ingredientSearchInput.addEventListener("input", function () {
   console.log("Ingredient input event");
   filterIngredients(searchResults);
-  searchIngredients();
+  displayRecipes(searchResults);
 });
 
-function filterIngredients() {
-  console.log(searchResults.length);
-
+function filterIngredients(searchResults) {
+  console.log(searchResults);
   const inputText = ingredientSearchInput.value.toLowerCase().trim();
   console.log(`${inputText.length} filterIngredients check`);
 
@@ -35,11 +34,11 @@ const applianceItems = document.getElementById("applianceDropdownItems");
 
 applianceSearchInput.addEventListener("input", function () {
   console.log("Appliance input event");
-  filterAppliances(recipes);
-  searchAppliances();
+  filterAppliances(searchResults);
+  //searchAppliances();
 });
 
-function filterAppliances() {
+function filterAppliances(searchResults) {
   const inputText = applianceSearchInput.value.toLowerCase().trim();
   console.log(`${inputText.length} filterAppliances check`);
 
@@ -141,7 +140,7 @@ function displayFilteredRecipes() {
   const applianceTags = applianceTagsBox.getElementsByClassName("tag");
   const utensilTags = utensilTagsBox.getElementsByClassName("tag");
 
-  const searchResults = [];
+  const filteredTagResults = [];
 
   for (let i = 0; i < recipes.length; i++) {
     console.log(recipes[i]);
@@ -225,16 +224,16 @@ function displayFilteredRecipes() {
     }
 
     if (hasMatchingTags) {
-      searchResults.push(recipe);
+      filteredTagResults.push(recipe);
     }
   }
 
-  // Empty recipesSection before adding searchResults
+  // Empty recipesSection before adding results
   recipesSection.innerHTML = "";
 
   // If result > 0, display it. If not, show noMatchMsg
-  if (searchResults.length > 0) {
-    displayRecipes(searchResults);
+  if (filteredTagResults.length > 0) {
+    displayRecipes(filteredTagResults);
   } else {
     const searchedTags = []; // Storage
     for (let i = 0; i < ingredientTags.length; i++) {
@@ -253,4 +252,6 @@ function displayFilteredRecipes() {
     // Update the total number of recipes to 0
     totalRecipeElement.textContent = "0 recette";
   }
+  console.log(searchResults); // recipeCards
+  console.log(filteredTagResults); // Filtered tags array
 }
