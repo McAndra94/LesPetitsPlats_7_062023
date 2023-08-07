@@ -200,14 +200,14 @@ h1 {
 	font-size: 15px;
 	margin: 3px 0px 3px -10px;
 	width: 115%;
-		background-color: #ffd15b;
-
+	background-color: #ffd15b;
 }
 
 .tagContainer {
 	background-color: #ffd15b;
 	padding-right: 20px;
-	border-radius: 10%;
+	border-radius: 10px;
+	margin-right: 10px;
 }
 
 .allIngTags,
