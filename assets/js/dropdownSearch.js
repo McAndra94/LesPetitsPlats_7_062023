@@ -139,9 +139,9 @@ function searchUtensils() {
 			const tag = selectedUtensilTags[j].toLowerCase();
 			let tagFound = false;
 
-			for (let k = 0; k < applianceList.length; k++) {
-				const applianceName = applianceList[k].textContent.toLowerCase();
-				if (applianceName === tag) {
+			for (let k = 0; k < utensilList.length; k++) {
+				const utensilName = utensilList[k].textContent.toLowerCase();
+				if (utensilName === tag) {
 					tagFound = true;
 					break;
 				}
