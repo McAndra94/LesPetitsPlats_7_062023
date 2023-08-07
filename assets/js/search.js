@@ -1,59 +1,96 @@
 const searchInput = document.getElementById("searchInput");
-const recipeCards = recipesSection.getElementsByClassName("recipeCard");
+const recipeCardsContainer =
+	recipesSection.getElementsByClassName("recipeCard");
+const noMatchMsg = document.createElement("p");
+noMatchMsg.classList.add("noMatchMsg");
 
-searchInput.addEventListener("input", searchRecipes);
+// Declare (to be used as search input text)
+let searchText = "";
+// Declare as array (to be used as search results array)
+let searchResults = [];
+// Use to check if main search done or not. Default: not done
+let mainSearchDone = false;
 
+// Main search input event
+searchInput.addEventListener("input", function () {
+	// Transform text to lowercase for comparation
+	searchText = searchInput.value.toLowerCase();
+	// Search launches at 3 input, if empty all recipes are displayed
+	if (searchText.length >= 3) {
+		// Clear existing recipes & tags before displaying results or noMatchMsg
+		recipesSection.innerHTML = "";
+		searchRecipes();
+	}
+	if (searchText === "") {
+		searchRecipes();
+	}
+});
+
+// Function that handles the main search
 function searchRecipes() {
-  const searchText = searchInput.value.toLowerCase();
-  /* const ingredientTags = ingredientTagsBox.querySelectorAll(
-    "#ingredientTagsBox .tag"
-  );
-  const applianceTags = applianceTagsBox.querySelectorAll(
-    "#applianceTagsBox .tag"
-  );
-  const utensilTags = utensilTagsBox.querySelectorAll("#utensilTagsBox .tag"); */
-  const allTags = document.querySelectorAll(".allTags .tag");
-  let cards = 0;
+	let cards = 0; // Start at 0, for counting displayed n° recipes
+	searchResults = []; // Empty 1st. To store results in an array
 
-  for (let i = 0; i < recipeCards.length; i++) {
-    const recipeCard = recipeCards[i];
-    const recipeText = recipeCard.textContent.toLowerCase();
-    let searchMatch = false;
-    let tagMatch = true;
+	// Clear previous recipe cards
+	recipes.forEach((recipe) => {
+		const recipeName = recipe.name;
+		const recipeDescription = recipe.description;
+		const ingredientNameCells = recipe.ingredients.map((ing) => ing.ingredient);
+		let searchMatch = false; // Declare and set default as false
 
-    // Check if the recipe card matches the search text
-    if (
-      searchText === "" ||
-      recipeCard.textContent.toLowerCase().includes(searchText)
-    ) {
-      searchMatch = true;
-    }
+		// Check if search text matches recipe name or description
+		if (
+			searchText === "" ||
+			recipeName.toLowerCase().includes(searchText) ||
+			recipeDescription.toLowerCase().includes(searchText)
+		) {
+			searchMatch = true; // Change to true if match is found
+		}
 
-    if (allTags.length > 0) {
-      for (let j = 0; j < allTags.length; j++) {
-        const tag = allTags[j];
-        const tagName = tag.textContent.toLowerCase();
+		// Check if recipe ingredient matches the search text
+		ingredientNameCells.forEach((ingredientName) => {
+			if (ingredientName.toLowerCase().includes(searchText)) {
+				searchMatch = true;
+			}
+		});
 
-        // Check if the recipe card matches any of the tags
-        if (recipeText.includes(tagName)) {
-          tagMatch = true;
-          break;
-        }
-      }
-    } else {
-      // If no tags selected, consider it as a match
-      tagMatch = true;
-    }
+		// Show/hide the recipe card based on search matches
+		if (searchMatch) {
+			cards++; // +1 for each match found & update displayed n° recipes
+			searchResults.push(recipe); // Store the recipe card found
+		}
+		// If searchResults > 0, set mainSearchDone to true
+		if (searchResults.length > 0) {
+			mainSearchDone = true;
+		}
+	});
 
-    // Show/hide the recipe card based on search and tag matches
-    if (searchMatch && tagMatch) {
-      recipeCard.style.display = "block";
-      cards++;
-    } else {
-      recipeCard.style.display = "none";
-    }
-  }
+	// Clear existing recipes & tags before displaying results or noMatchMsg
+	recipesSection.innerHTML = "";
 
-  // Update the total number of recipes
-  totalRecipeElement.textContent = cards + " recettes";
+	// If cards is higher than 0, then search results found
+	if (cards > 0) {
+		// Update totalRecipeElement with total n° (cards) of recipes
+		totalRecipeElement.textContent = cards + " recettes";
+		// Display the search results
+		displayRecipes(searchResults);
+		// Update the dropdowns with the search results
+		populateDropdowns(searchResults);
+	}
+	// If cards is 0, show no match message
+	else if (cards === 0) {
+		noMatchMsg.textContent = `Aucune recette ne contient "${searchText}" vous pouvez chercher « tarte aux pommes », « poisson », etc.`;
+		// Append noMatchMsg to recipesSection when no match
+		recipesSection.appendChild(noMatchMsg);
+
+		// Update totalRecipeElement (total number of recipes) to 0 recipe
+		totalRecipeElement.textContent = "0 recette";
+	} else {
+		// Check if noMatchMsg is a child of recipesSection
+		if (noMatchMsg.parentNode === recipesSection) {
+			// If so, remove noMatchMsg (meaning there's a match)
+			recipesSection.removeChild(noMatchMsg);
+		}
+	}
+	return searchResults;
 }

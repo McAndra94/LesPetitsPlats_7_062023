@@ -1,154 +1,98 @@
-// Add eventListeners to the the dropdown items
-function attachEventListeners() {
-  // 1. Ingredient section
-  const ingredientDropdown = document.getElementById("ingredientDropdownItems");
-  const ingreDropdownItems =
-    ingredientDropdown.getElementsByClassName("ingredientList");
+// Populate the 3 dropdown menus with data from recipes.js
+function populateDropdowns(searchResults) {
+	// Assign the HTML elements to variables that will contain the search + lists
+	const ingredientDropdown = document.getElementById("ingredientDropdownItems");
+	const applianceDropdown = document.getElementById("applianceDropdownItems");
+	const utensilDropdown = document.getElementById("utensilDropdownItems");
 
-  for (let i = 0; i < ingreDropdownItems.length; i++) {
-    const item = ingreDropdownItems[i];
-    item.addEventListener("click", function (event) {
-      event.stopPropagation();
-      addIngredientTag(item.textContent.toLowerCase(), ingredientTagsBox);
-    });
-  }
+	// Create empty arrays to contain the ingredients, appliances & utensils
+	const ingredients = [];
+	const appliances = [];
+	const utensils = [];
 
-  // 2. Appliance section
-  const applianceDropdown = document.getElementById("applianceDropdownItems");
-  const appliDropdownItems =
-    applianceDropdown.getElementsByClassName("applianceList");
+	// If mainSearchDone is true, then searchResults, if not recipes
+	let results = mainSearchDone ? searchResults : recipes;
 
-  for (let i = 0; i < appliDropdownItems.length; i++) {
-    const item = appliDropdownItems[i];
-    item.addEventListener("click", function (event) {
-      event.stopPropagation();
-      addApplianceTag(item.textContent.toLowerCase(), applianceTagsBox);
-    });
-  }
+	// Loop through all the recipeCards
+	for (let i = 0; i < results.length; i++) {
+		const recipe = results[i];
 
-  // 3. Utensil section
-  const utensilDropdown = document.getElementById("utensilDropdownItems");
-  const utensilDropdownItems =
-    utensilDropdown.getElementsByClassName("utensilList");
+		// Getting ingredients, appliances, and utensils from the recipe
+		const recipeIngredients = recipe.ingredients;
+		const recipeAppliance = recipe.appliance;
+		const recipeUtensils = recipe.ustensils;
 
-  for (let i = 0; i < utensilDropdownItems.length; i++) {
-    const item = utensilDropdownItems[i];
-    item.addEventListener("click", function (event) {
-      event.stopPropagation();
-      addUtensilTag(item.textContent.toLowerCase(), utensilTagsBox);
-    });
-  }
+		// Check then add if ingredient doesn't already exist in the ingredients array
+		for (let j = 0; j < recipeIngredients.length; j++) {
+			const ingredient = recipeIngredients[j].ingredient;
+			if (!ingredients.includes(ingredient)) {
+				ingredients.push(ingredient);
+			}
+		}
+
+		// Check then add if appliance doesn't already exist (appliance doesn't contain an array)
+		if (!appliances.includes(recipeAppliance)) {
+			const appliance = recipeAppliance;
+			appliances.push(appliance);
+		}
+
+		// Check then add if ustensil doesn't already exist in the ustensils array
+		if (recipeUtensils) {
+			for (let k = 0; k < recipeUtensils.length; k++) {
+				const utensil = recipeUtensils[k];
+				if (!utensils.includes(utensil)) {
+					utensils.push(utensil);
+				}
+			}
+		}
+	}
+
+	// After doing the above, call these 3 functions with 2 arguments (Arg)
+	// Arg 1: targeted dropdown & Arg 2: items in each array
+	// And populate the dropdowns with its' items
+	populateIngredientDropdown(ingredientDropdown, ingredients);
+	populateApplianceDropdown(applianceDropdown, appliances);
+	populateUtensilDropdown(utensilDropdown, utensils);
 }
 
-window.onload = function () {
-  // Call the function to display the recipes
-  displayRecipes(recipes);
-  // populateIngredientDropdown(recipes);
-  // populateApplianceDropdown(recipes);
-  // populateUtensilDropdown(recipes);
-  populateDropdowns(recipes);
-  filterIngredients(recipes);
-  filterAppliances(recipes);
-  filterUtensils(recipes);
-  attachEventListeners();
-  displayFilteredRecipes();
-};
-
-function populateDropdowns(recipes) {
-  console.log("populateDropdowns check");
-  const ingredientDropdown = document.getElementById("ingredientDropdownItems");
-  const applianceDropdown = document.getElementById("applianceDropdownItems");
-  const utensilDropdown = document.getElementById("utensilDropdownItems");
-
-  const ingredients = [];
-  const appliances = [];
-  const utensils = [];
-
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-
-    for (let j = 0; j < recipe.ingredients.length; j++) {
-      const ingredient = recipe.ingredients[j].ingredient;
-      if (!ingredients.includes(ingredient)) {
-        ingredients.push(ingredient);
-      }
-    }
-
-    const appliance = recipe.appliance;
-    if (!appliances.includes(appliance)) {
-      appliances.push(appliance);
-    }
-
-    if (recipe.ustensils) {
-      for (let j = 0; j < recipe.ustensils.length; j++) {
-        const utensil = recipe.ustensils[j];
-
-        if (!utensils.includes(utensil)) {
-          utensils.push(utensil);
-        }
-      }
-    }
-  }
-
-  populateIngredientDropdown(ingredientDropdown, ingredients);
-  populateApplianceDropdown(applianceDropdown, appliances);
-  populateUtensilDropdown(utensilDropdown, utensils);
-}
-
+// Arg 1: targeted dropdown container & Arg 2: options here refers to the available items
 function populateIngredientDropdown(dropdown, options) {
-  for (let i = 0; i < options.length; i++) {
-    const option = document.createElement("a");
-    option.classList.add("ingredientList");
-    option.textContent = options[i];
-    dropdown.appendChild(option);
-  }
+	dropdown.innerHTML = ""; // empty 1st
+	for (let i = 0; i < options.length; i++) {
+		// Create <li> for each item available
+		const li = document.createElement("li");
+		li.classList.add("ingredientList");
+		li.textContent = options[i];
+		// If yes, hide the item in the dropdown list
+		if (selectedIngredientTags.includes(options[i].toLowerCase().trim())) {
+			li.style.display = "none";
+		}
+		dropdown.appendChild(li);
+	}
 }
 
 function populateApplianceDropdown(dropdown, options) {
-  for (let i = 0; i < options.length; i++) {
-    const option = document.createElement("a");
-    option.classList.add("applianceList");
-    option.textContent = options[i];
-    dropdown.appendChild(option);
-  }
+	dropdown.innerHTML = "";
+	for (let i = 0; i < options.length; i++) {
+		const li = document.createElement("li");
+		li.classList.add("applianceList");
+		li.textContent = options[i];
+		if (selectedApplianceTags.includes(options[i].toLowerCase().trim())) {
+			li.style.display = "none";
+		}
+		dropdown.appendChild(li);
+	}
 }
 
 function populateUtensilDropdown(dropdown, options) {
-  for (let i = 0; i < options.length; i++) {
-    const option = document.createElement("a");
-    option.classList.add("utensilList");
-    option.textContent = options[i];
-    dropdown.appendChild(option);
-  }
-}
-
-// Function to display filtered recipes
-function displayFilteredRecipes() {
-  // Get the tags from all tags box
-  const tags = allTagsBox.querySelectorAll(".tag");
-
-  const filteredRecipes = [];
-
-  // Iterate over the recipes
-  for (let i = 0; i < recipes.length; i++) {
-    const recipe = recipes[i];
-    let hasMatchingTag = false;
-
-    // Check if any of the tags match the recipe
-    for (let j = 0; j < tags.length; j++) {
-      const tag = tags[j];
-      if (tag.textContent.toLowerCase() === recipe.toLowerCase()) {
-        hasMatchingTag = true;
-        break;
-      }
-    }
-
-    // If a matching tag is found, add recipe
-    if (hasMatchingTag) {
-      filteredRecipes.push(recipe);
-    }
-  }
-
-  // Display the filtered recipes
-  displayRecipes(filteredRecipes);
+	dropdown.innerHTML = "";
+	for (let i = 0; i < options.length; i++) {
+		const li = document.createElement("li");
+		li.classList.add("utensilList");
+		li.textContent = options[i];
+		if (selectedUtensilTags.includes(options[i].toLowerCase().trim())) {
+			li.style.display = "none";
+		}
+		dropdown.appendChild(li);
+	}
 }
