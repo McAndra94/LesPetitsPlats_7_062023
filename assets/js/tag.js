@@ -557,10 +557,10 @@ function removeAllUteTags(tagText) {
 		}
 	}
 
-	// Update the existingUtensilTags array
-	const tagIndex = existingUtensilTags.indexOf(tagText.toLowerCase());
+	// Update the selectedUtensilTags array
+	const tagIndex = selectedUtensilTags.indexOf(tagText.toLowerCase());
 	if (tagIndex > -1) {
-		existingUtensilTags.splice(tagIndex, 1);
+		selectedUtensilTags.splice(tagIndex, 1);
 	}
 
 	// Add tag back to utensilList in dropdown
