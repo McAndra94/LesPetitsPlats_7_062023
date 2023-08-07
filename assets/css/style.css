@@ -225,7 +225,7 @@ h1 {
 	border-radius: 10px;
 	margin: 10px;
 	padding: 15px 25px;
-	align-content: left;
+	text-align: left;
 }
 
 .close,
