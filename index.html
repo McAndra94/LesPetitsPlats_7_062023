@@ -67,7 +67,6 @@
               id="ingredientDropdownToggle"
               class="btn dropdown-toggle"
               type="button"
-              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -98,9 +97,9 @@
                   <!-- selected tags go here -->
                 </div>
                 <div class="dropdownItemsBox">
-                  <div id="ingredientDropdownItems">
+                  <ul id="ingredientDropdownItems">
                     <!-- items go here -->
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -112,7 +111,6 @@
               id="applianceDropdownToggle"
               class="btn dropdown-toggle"
               type="button"
-              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -157,7 +155,6 @@
               id="utensilDropdownToggle"
               class="btn dropdown-toggle"
               type="button"
-              data-bs-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
@@ -198,7 +195,11 @@
         </div>
         <div class="totalRecipes"></div>
       </div>
-      <div class="allTags"></div>
+      <div class="allTags">
+        <div class="allIngTags"></div>
+        <div class="allAppTags"></div>
+        <div class="allUteTags"></div>
+      </div>
 
       <!-- Section 3 : Recipes -->
       <div class="recipesSection"></div>
@@ -212,6 +213,7 @@
     <script src="./assets/js/populate.js"></script>
     <script src="./assets/js/tag.js"></script>
     <script src="./assets/js/search.js"></script>
+    <script src="./assets/js/dropdownSearch.js"></script>
     <script src="./assets/js/filter.js"></script>
   </body>
 </html>
