@@ -31,7 +31,6 @@ function searchRecipes() {
 	let cards = 0; // Start at 0, for counting displayed n° recipes
 	searchResults = []; // Empty 1st. To store results in an array
 
-	// Clear previous recipe cards
 	recipes.forEach((recipe) => {
 		const recipeName = recipe.name;
 		const recipeDescription = recipe.description;
