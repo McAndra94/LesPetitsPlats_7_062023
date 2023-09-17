@@ -31,12 +31,15 @@ function searchRecipes() {
 	let cards = 0; // Start at 0, for counting displayed n° recipes
 	searchResults = []; // Empty 1st. To store results in an array
 
-	// Clear previous recipe cards
+	// Loop through recipes
 	for (let i = 0; i < recipes.length; i++) {
 		const recipe = recipes[i];
 		const recipeName = recipe.name;
 		const recipeDescription = recipe.description;
-		const ingredientNameCells = recipe.ingredients.map((ing) => ing.ingredient);
+		const ingredientNameCells = [];
+		for (let j = 0; j < recipe.ingredients.length; j++) {
+			ingredientNameCells.push(recipe.ingredients[j].ingredient);
+		}
 		let searchMatch = false; // Declare and set default as false
 
 		// Check if search text matches recipe name or description
@@ -49,8 +52,8 @@ function searchRecipes() {
 		}
 
 		// Check if recipe ingredient matches the search text
-		for (let j = 0; j < ingredientNameCells.length; j++) {
-			const ingredientName = ingredientNameCells[j].toLowerCase();
+		for (let k = 0; k < ingredientNameCells.length; k++) {
+			const ingredientName = ingredientNameCells[k].toLowerCase();
 			if (ingredientName.includes(searchText)) {
 				searchMatch = true;
 				break; // Stop the loop & move on
@@ -95,6 +98,5 @@ function searchRecipes() {
 			recipesSection.removeChild(noMatchMsg);
 		}
 	}
-	console.log(searchResults);
 	return searchResults;
 }
